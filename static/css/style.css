@@ -123,7 +123,7 @@ textarea.question:focus {
 }
 
 .button:active {
-    margin-top: 23px;
+  margin-top: 23px;
 }
 
 .disabled:active {

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<style type="text/css" media="screen">
+
+/* Add style rules here */
+
+/*
+Basic input element using psuedo classes
+*/
+
+html {
+  font-family: 'Lora', sans-serif;
+  width: 100%;
+}
+
+body {
+  margin-top: 5%;
+  width: 99%;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 2.5%;
+}
+
+input,
+span,
+label,
+textarea {
+  font-family: 'Ubuntu', sans-serif;
+  display: block;
+  font-size: 22px;
+}
+
+div.main-container{
+    display:block;
+    margin:auto;
+    width: 60%;
+    padding: 0px;
+}
+
+div.form-container{
+    display:block;
+    margin:auto;
+    width: 100%;
+    border:solid;
+    border-color: gray;
+    border-width: 2px;
+    padding: 0px;
+}
+
+form {
+    margin-top: 10px;
+}
+
+textarea:focus,
+input:focus,
+button:focus {
+  outline: 0;
+}
+/* Question */
+
+textarea.question {
+    resize: none;
+    display: block;
+    position: relative;
+    margin: 4%;
+    font-size: 23px;
+    font-weight: 300;
+    border-radius: 2px;
+    border: none;
+    width: 92%;
+    background: rgba(0, 0, 0, 0);
+    transition: padding-top 0.2s ease, margin-top 0.2s ease;
+    overflow-x: hidden; /* Hack to make "rows" attribute apply in Firefox. */
+}
+/* Underline and Placeholder */
+textarea.question + label {
+  display: block;
+  position: relative;
+  top:0px;
+  white-space: nowrap;
+  border-color: gray;
+  padding: 0;
+  width: 80%;
+  -webkit-transition: width 0.4s ease;
+  transition: width 0.4s ease;
+  height: 20px;
+}
+
+/* Label Transitions */
+textarea.question:focus + label {
+  width: 80%;
+}
+
+textarea.question:valid,
+textarea.question:focus {
+  border-color: white;
+}
+
+
+/*** Buttons ****/
+
+.button{
+  display: inline-block;
+  float:right;
+  background-color: #4BA7F0; /* Green */
+  border: none;
+  border-radius: 27px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 20px 6px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.2s; /* Safari */
+  transition-duration: 0.2s;
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.button:active {
+    margin-top: 23px;
+}
+
+.disabled:active {
+  margin-top: 20px;
+}
+
+.button2:hover {
+  box-shadow: 0 10px 12px 0 rgba(0,0,0,0.24), 0 15px 35px 0 rgba(0,0,0,0.19);
+}
+
+.disabled:hover {
+  box-shadow: 0 10px 12px 0 white, 0 15px 35px 0 white;
+}
+
+#call_classiffier{
+    margin-right: -4px;
+}
+
+.class_indicator{
+    cursor: pointer;
+    display: inline-block;
+    margin:10px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;  
+    line-height: 50px;
+    text-align: center;
+    color: #272323;
+    font-weight: 700;
+}
+
+.class-1{
+    background-color: #F0224C;
+}
+
+.class-0{
+    background-color: #1AEE7F;
+}
+
+.class-neutral{
+    background-color: #cccccc;
+}
+
+.classes-container{
+    display: block;
+    margin:auto;
+    margin-top: 100px;
+    width: 219px;
+}
+
+.centered{
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+input[type="submit"] {
+  -webkit-transition: opacity 0.2s ease, background 0.2s ease;
+  transition: opacity 0.2s ease, background 0.2s ease;
+  display: block;
+  opacity: 0;
+  margin: 10px 0 0 0;
+  padding: 10px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background: #EEE;
+}
+
+input[type="submit"]:active {
+  background: #999;
+}
+
+input.question:valid ~ input[type="submit"], textarea.question:valid ~ input[type="submit"] {
+  -webkit-animation: appear 1s forwards;
+  animation: appear 1s forwards;
+}
+
+input.question:invalid ~ input[type="submit"], textarea.question:invalid ~ input[type="submit"] {
+  display: none;
+}
+
+@-webkit-keyframes appear {
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes appear {
+  100% {
+    opacity: 1;
+  }
+}
+
+span.mesg-promt{
+    color: #333;
+}
+
+#main_logo{
+    margin-left: -25px;
+    margin-top: -17px;
+    margin-bottom: 2px;
+}
+
+#char_count{
+    position: relative;
+    bottom: -42px;
+    left: 0px;
+    font-size: 16px;
+}
+
+</style>
+
+
+<html>
+<body>
+
+<div class="main-container">
+    <img src="main_logo_2.svg" id="main_logo">
+    <div class="form-container">
+        <form>
+          <textarea name="message" rows="5" placeholder="Escribe un mensaje de prueba..." class="question" id="msg" required autocomplete="off" onkeyup="charCounter(this,'char_count',280);"></textarea>
+        </form>
+
+        <span id='char_count'>280 caracteres restantes</span>
+
+        <button class="button button2 disabled" id="call_classiffier">Procesar Mensaje</button>
+        <button class="button button2" id="borrar_todo">Borrar todo</button>
+
+        
+        
+    </div>
+
+
+    <div class="classes-container">
+        <div class="class_indicator class-neutral" id="HS">
+            HS
+        </div>
+        <div class="class_indicator class-neutral" id="TR">
+            TR
+        </div>
+
+        <div class="class_indicator class-neutral" id="AG">
+            AG
+        </div>
+    </div>
+
+    <div class="centered" id='confidence_value'></div>
+
+</div>
+
+<script>
+
+    var btn1 = document.getElementById("borrar_todo");
+    var btn2 = document.getElementById("call_classiffier");
+    var text_field = document.getElementById("msg");
+
+    var hs_indicator = document.getElementById("HS");
+    var tr_indicator = document.getElementById("TR");
+    var ag_indicator = document.getElementById("AG");
+
+    var confidence_legend = document.getElementById("confidence_value");
+
+    btn1.addEventListener("click", eraseMsg);
+    btn2.addEventListener("click", callClassiffier);
+
+    function charCounter(text_field, count_span_id, max_limit)
+    {
+         var count_span = document.getElementById(count_span_id);
+         let msg_length = text_field.value.length;
+         if ( msg_length> max_limit) {
+              text_field.value = text_field.value.substring( 0, max_limit);
+              return false;
+         } else {
+              let chars_left = max_limit - msg_length 
+              count_span.innerHTML = chars_left + " caracteres restantes";
+              if(msg_length > 0){
+                btn2.disabled = false;
+                btn1.classList.remove("disabled");
+                btn2.classList.remove("disabled");
+
+              }else{
+                btn2.disabled = true;
+                btn1.classList.add("disabled");
+                btn2.classList.add("disabled");
+              }
+         }
+    }
+
+    function eraseMsg(){
+        text_field.value=""
+
+        var count_span = document.getElementById("char_count");
+        count_span.innerHTML = "280 caracteres restantes";
+        btn1.classList.add("disabled");
+        btn2.classList.add("disabled");
+
+        resetIndicators();
+    }
+
+    function resetIndicators(){
+        hs_indicator.className = "class_indicator class-neutral";
+        tr_indicator.className = "class_indicator class-neutral";
+        ag_indicator.className = "class_indicator class-neutral";
+        confidence_value.innerHTML = ""
+    }
+
+    function getLabels(label){
+        if(label==0){
+            return ["0","0","0"]
+        }else if(label==1){
+            return ["1","0","0"]
+        }else if(label==2){
+            return ["1","0","1"]
+        }else if(label==3){
+            return ["1","1","0"]
+        }else if(label==4){
+            return ["1","1","1"]
+        }
+    }
+
+    
+
+    async function callClassiffier() {
+
+        if(document.getElementById('msg').value.length==0){
+            return
+        }
+
+        //function callClassiffier(){
+        let message = text_field.value;
+        console.log(message);
+
+        let url = 'http://34.71.128.157:5000/predict?tweet="' + message + '"';
+        console.log(url);
+        let response = await fetch(url, {
+                mode: 'cors',
+                method: 'GET',
+                headers: {
+                  'Content-Type':'text/plain'
+                }
+            }
+        );
+
+        if (response.status==200) { // if HTTP-status is 200-299
+          // get the response body (the method explained below)
+          //let text_res = await response.text();
+          //console.log(text_res);
+          let json_obj = await response.json();
+          console.log(json_obj);
+          console.log(json_obj['label']);
+          //alert("Predicción recibida");
+
+          labels = getLabels(json_obj['label']);
+
+          if(labels[0]==0){
+            hs_indicator.className = "class_indicator class-0";
+            tr_indicator.className = "class_indicator class-neutral";
+            ag_indicator.className = "class_indicator class-neutral";
+          }else{
+            hs_indicator.className = "class_indicator class-1";
+            tr_indicator.className = "class_indicator class-" + labels[1]; 
+            ag_indicator.className = "class_indicator class-" + labels[2]; 
+          }
+
+
+          let confidence = parseFloat(json_obj['confianza']) * 100
+          confidence_value.innerHTML = "Confianza: " + confidence.toFixed(2) + "%"
+
+        } else {
+          alert("HTTP-Error: " + response.status);
+          console.log(response.status);
+        }
+    }
+
+</script>
+
+</body>
+</html>

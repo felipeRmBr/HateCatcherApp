@@ -1,5 +1,5 @@
 import nltk
-nltk.download('punkt')
+#nltk.download('punkt')
 from nltk.tokenize import word_tokenize
 
 from keras.models import model_from_json

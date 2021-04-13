@@ -1,6 +1,6 @@
 # app.py
 
-from flask import Flask, request, make_response,jsonify
+from flask import Flask, request, make_response,jsonify, render_template
 from utils import tweetPreprocessing, toEmbedingsSequence, loadPretrainedModel, getFastTextModel
 
 app = Flask(__name__)

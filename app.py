@@ -42,7 +42,7 @@ def tp():
 @app.route("/predict")
 def predict():
     mesg_str = request.args.get('tweet')
-    tokens_list = tweetPreprocessing(mesg_str)
+    tokens_list = tweetPreprocessing(mesg_str,2)
     encoded_tweet = toEmbedingsSequence(tokens_list, ft_model)
     encoded_tweet.reshape((1,55,300))
     pred = classifier_1.predict(encoded_tweet)

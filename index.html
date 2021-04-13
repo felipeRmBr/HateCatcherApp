@@ -151,14 +151,6 @@
             }
         );
 
-        fetch('https://example.com/profile', {
-          method: 'POST', // or 'PUT'
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        })
-
         if (response.status==200) { 
 
           // if HTTP-status is 200-299

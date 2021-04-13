@@ -53,10 +53,9 @@
         </div>
     </div>
 
-    <div class="centered" id='confidence_value'>Confianza: --</div>
+    <div class="centered" id='confidence_value'></div>
 
-    <div class="centered" id='result_legend'>El clasificador detectó un discurso de odio no agresivo 
-    con un target individual.</div>
+    <div class="centered" id='result_legend'></div>
 
 </div>
 
@@ -115,7 +114,8 @@
         hs_indicator.className = "class_indicator class-neutral";
         tr_indicator.className = "class_indicator class-neutral";
         ag_indicator.className = "class_indicator class-neutral";
-        confidence_value.innerHTML = ""
+        confidence_value.innerHTML = "";
+	result_legend.innerHTML = "";
     }
 
     function getLabels(label){

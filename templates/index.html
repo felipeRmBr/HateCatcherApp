@@ -38,15 +38,15 @@
 
     <div class="classes-container">
         <div class="class_indicator class-neutral" id="HS">
-            HS
+            HS=0
         </div>
 
         <div class="class_indicator class-neutral" id="AG">
-            AG
+            AG=0
         </div>
 
         <div class="class_indicator class-neutral" id="TR">
-            TR
+            TR=0
         </div>
     </div>
 
@@ -114,7 +114,11 @@
         tr_indicator.className = "class_indicator class-neutral";
         ag_indicator.className = "class_indicator class-neutral";
         confidence_value.innerHTML = "";
-	result_legend.innerHTML = "";
+	    result_legend.innerHTML = "";
+
+        hs_indicator.innerHTML = "HS=0";
+        tr_indicator.innerHTML = "TR=0";
+        ag_indicator.innerHTML = "AG=0";
     }
 
     function getLabels(label){
@@ -150,7 +154,7 @@
         //console.log(message);
 
         //let url = './predict?tweet="' + message + '"';
-        let url = './predict;
+        let url = './predict';
         //console.log(url);
         let response = await fetch(url, {
                 method: 'GET',

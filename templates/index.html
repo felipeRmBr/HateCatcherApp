@@ -141,7 +141,8 @@
         let message = text_field.value;
         console.log(message);
 
-        let url = './predict?tweet="' + message + '"';
+        //let url = './predict?tweet="' + message + '"';
+        let url = './predict?tweet="--"';
         console.log(url);
         let response = await fetch(url, {
                 method: 'GET',

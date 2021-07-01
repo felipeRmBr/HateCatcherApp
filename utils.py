@@ -1,4 +1,5 @@
 import nltk
+nltk.download('punkt')
 from nltk.tokenize import word_tokenize
 
 from keras.models import model_from_json
@@ -74,14 +75,14 @@ def toEmbedingsSequence(preprocessed_tweet, ft_model):
 def loadPretrainedModel(model_id):
 
   # load json and create model
-  json_file = open(f'./{model_id}.json', 'r')
+  json_file = open(f'./models/{model_id}.json', 'r')
   loaded_model_json = json_file.read()
   json_file.close()
 
   pretrained_model = model_from_json(loaded_model_json)
 
   # load weights into model
-  pretrained_model.load_weights(f'./{model_id}.hdf5')
+  pretrained_model.load_weights(f'./models/{model_id}.hdf5')
 
   print("Model was loaded from disk")
 

@@ -65,9 +65,9 @@ def predict():
         confidence = pred[0][label]
 
     elif chosen_classifier == "ENSEMBLE":
-        classes_probs_sum = np.zeros(1,5))
+        classes_probs_sum = np.zeros(1,5)
 
-        for CLASSIFIERS in ENSEMBLE_CLASSIFIERS
+        for CLASSIFIERS in ENSEMBLE_CLASSIFIERS:
             # make predictions on X_test samples
             classes_probs = CLASSIFIERS.predict(encoded_tweet)
             
@@ -89,4 +89,4 @@ def predict():
     return res
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=2500, debug=False)

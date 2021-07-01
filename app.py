@@ -67,7 +67,7 @@ def predict():
         confidence = pred[0][label]
 
     elif chosen_classifier == "Ensmble-CNN":
-        classes_probs_sum = np.zeros(1,5)
+        classes_probs_sum = np.zeros((1,5))
 
         for CLASSIFIERS in ENSEMBLE_CLASSIFIERS:
             # make predictions on X_test samples

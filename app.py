@@ -2,6 +2,8 @@
 from flask import Flask, request, make_response,jsonify, render_template
 from utils import tweetPreprocessing, toEmbedingsSequence, loadPretrainedModel, getFastTextModel
 
+import numpy as np
+
 app = Flask(__name__)
 
 #MODEL_ID = "buWKkGpy"

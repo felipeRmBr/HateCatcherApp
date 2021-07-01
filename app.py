@@ -64,7 +64,7 @@ def predict():
         label = pred.argmax()
         confidence = pred[0][label]
 
-    elif chosen_classifier == "ENSEMBLE":
+    elif chosen_classifier == "Ensmble-CNN":
         classes_probs_sum = np.zeros(1,5)
 
         for CLASSIFIERS in ENSEMBLE_CLASSIFIERS:

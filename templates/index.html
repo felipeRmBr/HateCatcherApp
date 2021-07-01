@@ -14,11 +14,8 @@
             <span>Clasificador</span>
             <ul class="dropdown" tabindex="1">
                 <li><a href="#">CNN</a></li>
-                <li><a href="#">LSTM</a></li>
+                <li><a href="#">Ensmble-CNN</a></li>
                 <li><a href="#">SVC</a></li>
-                <li><a href="#">Ensamble - CNN</a></li>
-                <li><a href="#">Ensamble - LSTM</a></li>
-                <li><a href="#">Ensamble - SVC</a></li>
             </ul>
         </div>
     ​</div>
@@ -62,6 +59,8 @@
 <!-- jQuery if needed -->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script>
+
+    var chosen_classifier
 
     var btn1 = document.getElementById("borrar_todo");
     var btn2 = document.getElementById("call_classiffier");
@@ -149,7 +148,7 @@
                 headers: {
                   'Content-Type':'text/plain',
                   'message':message,
-                  'classifier':'CNN',
+                  'classifier':chosen_classifier,
                 }
             }
         );
@@ -201,6 +200,7 @@
         }
     }
 
+    // DROPDOWN CONTROL
     function DropDown(el) {
         this.dd = el;
         this.placeholder = this.dd.children('span');
@@ -224,6 +224,7 @@
                 obj.val = opt.text();
                 obj.index = opt.index();
                 obj.placeholder.text('Clasificador: ' + obj.val);
+                chosen_classifier = obj.val;
             });
         },
 

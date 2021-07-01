@@ -1,17 +1,17 @@
 import nltk
-#nltk.download('punkt')
 from nltk.tokenize import word_tokenize
 
 from keras.models import model_from_json
 import numpy as np
 import fasttext
 
+### NORMALIZATION ###
+
 def tweetPreprocessing(raw_tweet, format):
   """
   @user_name      ->  nombre
   https//:sdasf   ->  link
   #some_hashtag   ->  tema
-
   """
 
   import re
@@ -56,7 +56,7 @@ def tweetPreprocessing(raw_tweet, format):
   return token_list
 
 
-## utils ####
+### VECTORIZATION ###
 
 MAX_WORDS = 55
 EMBEDDINGS_SIZE = 300
@@ -68,28 +68,39 @@ def toEmbedingsSequence(preprocessed_tweet, ft_model):
     embeddings_sequence[0][i] = word_vector
   return embeddings_sequence
 
-##### GET THE PRETRAINED MODEL READY #####
+##### GET THE PRETRAINED MODEL #####
 
+## NN MODEL
 def loadPretrainedModel(model_id):
+
   # load json and create model
   json_file = open(f'./{model_id}.json', 'r')
   loaded_model_json = json_file.read()
   json_file.close()
 
   pretrained_model = model_from_json(loaded_model_json)
-  # load weights into new model
+
+  # load weights into model
   pretrained_model.load_weights(f'./{model_id}.hdf5')
 
-  print("Loaded model from disk")
+  print("Model was loaded from disk")
 
   return pretrained_model
+  
 
+## FastText Model
 def getFastTextModel():
   ##### Prepare the FAST-TEXT model #####
   print('Preparing FastText model')
   ft_model = ft_model = fasttext.load_model('../FastText_3/embeddings-l-model.bin')
 
   return ft_model
+
+############  SVM MODEL   ############
+
+######################################
+
+
 
 def loadPretrainedModel_2(model_id):
   # load json and create model

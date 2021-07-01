@@ -150,7 +150,7 @@
         }
 
         //function callClassiffier(){
-        let message = text_field.value;
+        let message = text_field.value.replace(/[\n\r]/g, '');
         //console.log(message);
 
         //let url = './predict?tweet="' + message + '"';

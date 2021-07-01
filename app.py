@@ -85,7 +85,8 @@ def predict():
                 confidence = classes_probs_sum[0][label]/7
 
     else:
-        label = 2
+
+        label = request.headers.get('test_label')
         confidence = 0.75
 
     print(tokens_list)

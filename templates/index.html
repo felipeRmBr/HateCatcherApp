@@ -62,6 +62,7 @@
 
     var chosen_classifier;
     var working_mode = "operation";
+    var fake_label="1";
 
     var btn1 = document.getElementById("borrar_todo");
     var btn2 = document.getElementById("call_classiffier");
@@ -166,6 +167,7 @@
                   'message':"Message sent on url...",
                   'classifier':chosen_classifier,
                   'mode':working_mode,
+                  'test_label':fake_label,
                 }
             }
         );

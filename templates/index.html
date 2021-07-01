@@ -60,7 +60,8 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script>
 
-    var chosen_classifier
+    var chosen_classifier;
+    var working_mode = "operation";
 
     var btn1 = document.getElementById("borrar_todo");
     var btn2 = document.getElementById("call_classiffier");
@@ -153,15 +154,18 @@
         let message = text_field.value.replace(/[\n\r]/g, '');
         //console.log(message);
 
-        //let url = './predict?tweet="' + message + '"';
-        let url = './predict';
+        // headers cant receive emojis or new line characters
+        // so args works better in this case
+        let url = './predict?tweet="' + message + '"';
+        //let url = './predict';
         //console.log(url);
         let response = await fetch(url, {
                 method: 'GET',
                 headers: {
                   'Content-Type':'text/plain',
-                  'message':message,
+                  'message':"Message sent on url...",
                   'classifier':chosen_classifier,
+                  'mode'=working_mode,
                 }
             }
         );

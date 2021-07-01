@@ -9,7 +9,7 @@ app = Flask(__name__)
 #MODEL_ID = "buWKkGpy"
 #classifier_1 = loadPretrainedModel(MODEL_ID)
 
-ft_model = getFastTextModel()
+# ft_model = getFastTextModel()
 
 CNN_MODEL_ID = "GWVBtYHV"
 CNN_CLASSIFIER = loadPretrainedModel(CNN_MODEL_ID)
@@ -53,33 +53,44 @@ def tp():
 ### PREDICT
 @app.route("/predict")
 def predict():
-    mesg_str = request.headers.get('message')
+
+    # headers cant receive emojis or new line characters
+    # so args works better in this case
+    mesg_str = request.args.get('tweet')
+    # mesg_str = request.headers.get('message')
     chosen_classifier = request.headers.get('classifier')
-    
-    #mesg_str = request.args.get('tweet')
+    working_mode = request.headers.get('mode')
+
     tokens_list = tweetPreprocessing(mesg_str,2)
-    encoded_tweet = toEmbedingsSequence(tokens_list, ft_model)
-    encoded_tweet.reshape((1,55,300))
 
-    if chosen_classifier == "CNN":
-        pred = CNN_CLASSIFIER.predict(encoded_tweet)
-        label = pred.argmax()
-        confidence = pred[0][label]
+    if working_mode == "operation":
+        encoded_tweet = toEmbedingsSequence(tokens_list, ft_model)
+        encoded_tweet.reshape((1,55,300))
 
-    elif chosen_classifier == "Ensmble-CNN":
-        classes_probs_sum = np.zeros((1,5))
+        if chosen_classifier == "CNN":
+            pred = CNN_CLASSIFIER.predict(encoded_tweet)
+            label = pred.argmax()
+            confidence = pred[0][label]
 
-        for CLASSIFIERS in ENSEMBLE_CLASSIFIERS:
-            # make predictions on X_test samples
-            classes_probs = CLASSIFIERS.predict(encoded_tweet)
-            
-            classes_probs_sum += classes_probs
+        elif chosen_classifier == "Ensmble-CNN":
+            classes_probs_sum = np.zeros((1,5))
 
-            label = classes_probs_sum.argmax()
-            confidence = classes_probs_sum[0][label]/7
+            for CLASSIFIERS in ENSEMBLE_CLASSIFIERS:
+                # make predictions on X_test samples
+                classes_probs = CLASSIFIERS.predict(encoded_tweet)
+                
+                classes_probs_sum += classes_probs
+
+                label = classes_probs_sum.argmax()
+                confidence = classes_probs_sum[0][label]/7
+
+    else:
+        label = 2
+        confidence = 0.75
 
     print(tokens_list)
     print(label)
+    print("THIS IS TESTING MODE...")
 
     result = {'label':str(label), 'confianza':str(confidence)}
 

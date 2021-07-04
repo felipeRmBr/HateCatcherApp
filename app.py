@@ -6,10 +6,6 @@ import numpy as np
 
 app = Flask(__name__)
 
-#MODEL_ID = "buWKkGpy"
-#classifier_1 = loadPretrainedModel(MODEL_ID)
-
-# ft_model = getFastTextModel()
 
 CNN_MODEL_ID = "GWVBtYHV"
 CNN_CLASSIFIER = loadPretrainedModel(CNN_MODEL_ID)
@@ -55,7 +51,7 @@ def tp():
 def predict():
 
     # headers cant receive emojis or new line characters
-    # so args works better in this case
+    # that's the reason why we use request.args 
     mesg_str = request.args.get('tweet')
     # mesg_str = request.headers.get('message')
     chosen_classifier = request.headers.get('classifier')

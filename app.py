@@ -121,7 +121,7 @@ def predict():
         print(label)
 
     elif chosen_classifier == "SVC":
-        label = svc.predict(text_model.transform([mesg_str])[0])
+        label = svc.predict(text_model.transform([mesg_str]))[0]
         confidence = 0
 
         print(label)

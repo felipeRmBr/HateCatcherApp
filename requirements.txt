@@ -8,4 +8,4 @@ gunicorn==19.9.0
 fasttext==0.9.2
 nltk
 microtc
-sklearn==0.22.2.post1
+sklearn==0.22.2

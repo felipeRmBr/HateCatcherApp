@@ -2,10 +2,15 @@
 from flask import Flask, request, make_response,jsonify, render_template
 from utils import tweetPreprocessing, toEmbedingsSequence, loadPretrainedModel, getFastTextModel
 
+import sys
 import numpy as np
+
+operation_mode = str(sys.argv[0])
 
 app = Flask(__name__)
 
+if operation_mode = "full":
+    ft_model = getFastTextModel()
 
 # CNN
 CNN_MODEL_ID = "GWVBtYHV"
@@ -23,7 +28,6 @@ with open(f'./models/djwYeF.tm', 'rb') as file_handler:
 # load the classifier
 with open(f'./models/KAcOYq.svc', 'rb') as file_handler:
   svc = pickle.load(file_handler)
-
 
 print("THE CLASSIFIERS WERE LOADED TO MEMORY")
 print("THE SERVER IS READY...\n")

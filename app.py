@@ -6,10 +6,11 @@ import sys
 import numpy as np
 
 operation_mode = str(sys.argv[0])
+print("operation_mode: ", operation_mode)
 
 app = Flask(__name__)
 
-if operation_mode = "full":
+if operation_mode == "full":
     ft_model = getFastTextModel()
 
 # CNN

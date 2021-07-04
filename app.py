@@ -107,18 +107,25 @@ def predict():
 
                 label = classes_probs_sum.argmax()
                 confidence = classes_probs_sum[0][label]/7
+        
+        print(tokens_list)
+        print(label)
+
         else:
             label = request.headers.get('test_label')
             confidence = 0.75
 
             print("THIS IS TESTING MODE...")
 
+        print(tokens_list)
+        print(label)
+
     elif chosen_classifier == "SVC":
         label = svc.predict(text_model.transform([mesg_str])[0])
         confidence = 0
 
-    print(tokens_list)
-    print(label)
+        print(label)
+    
     
     result = {'label':str(label), 'confianza':str(confidence)}
 

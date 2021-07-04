@@ -7,11 +7,23 @@ import numpy as np
 app = Flask(__name__)
 
 
+# CNN
 CNN_MODEL_ID = "GWVBtYHV"
 CNN_CLASSIFIER = loadPretrainedModel(CNN_MODEL_ID)
 
+# CNN ENSEMBLE
 ENSEMBLE_IDS = ["xCdcvedN", "YBJbUNaX", "WFNrfnfd", "GWVBtYHV", "PZKzUveQ", "HMLMYxmV", "EhlKsruy"]
 ENSEMBLE_CLASSIFIERS = [loadPretrainedModel(MODEL_ID) for MODEL_ID in ENSEMBLE_IDS]
+
+# SVC
+# load the text_model 
+with open(f'./models/djwYeF.tm', 'rb') as file_handler:
+  text_model = pickle.load(file_handler)
+
+# load the classifier
+with open(f'./models/KAcOYq.svc', 'rb') as file_handler:
+  svc = pickle.load(file_handler)
+
 
 print("THE CLASSIFIERS WERE LOADED TO MEMORY")
 print("THE SERVER IS READY...\n")
@@ -80,6 +92,9 @@ def predict():
                 label = classes_probs_sum.argmax()
                 confidence = classes_probs_sum[0][label]/7
 
+        elif chosen_classifier == "SVC":
+            label = svc.predict(text_model.transform([mesg_str])[0])
+            confidence = 0
     else:
 
         label = request.headers.get('test_label')

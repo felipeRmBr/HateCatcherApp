@@ -108,8 +108,8 @@ def predict():
                 label = classes_probs_sum.argmax()
                 confidence = classes_probs_sum[0][label]/7
         
-        print(tokens_list)
-        print(label)
+            print(tokens_list)
+            print(label)
 
         else:
             label = request.headers.get('test_label')

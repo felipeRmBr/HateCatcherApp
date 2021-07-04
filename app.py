@@ -76,14 +76,12 @@ def predict():
     chosen_classifier = request.headers.get('classifier')
     working_mode = request.headers.get('mode')
 
-    tokens_list = tweetPreprocessing(mesg_str,2)
-
-    
-    encoded_tweet = toEmbedingsSequence(tokens_list, ft_model)
-    encoded_tweet.reshape((1,55,300))
-
     if chosen_classifier == "CNN":
         if operation_mode == "full":
+            tokens_list = tweetPreprocessing(mesg_str,2)
+            encoded_tweet = toEmbedingsSequence(tokens_list, ft_model)
+            encoded_tweet.reshape((1,55,300))
+
             pred = CNN_CLASSIFIER.predict(encoded_tweet)
             label = pred.argmax()
             confidence = pred[0][label]
@@ -95,6 +93,10 @@ def predict():
 
     elif chosen_classifier == "Ensmble-CNN":
         if operation_mode == "full":
+            tokens_list = tweetPreprocessing(mesg_str,2)
+            encoded_tweet = toEmbedingsSequence(tokens_list, ft_model)
+            encoded_tweet.reshape((1,55,300))
+            
             classes_probs_sum = np.zeros((1,5))
 
             for CLASSIFIERS in ENSEMBLE_CLASSIFIERS:

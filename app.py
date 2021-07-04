@@ -4,9 +4,9 @@ from utils import tweetPreprocessing, toEmbedingsSequence, loadPretrainedModel, 
 
 import sys
 import numpy as np
+import pickle
 
 operation_mode = str(sys.argv[0])
-print("operation_mode: ", operation_mode)
 
 app = Flask(__name__)
 
@@ -32,6 +32,8 @@ with open(f'./models/KAcOYq.svc', 'rb') as file_handler:
 
 print("THE CLASSIFIERS WERE LOADED TO MEMORY")
 print("THE SERVER IS READY...\n")
+
+print("OPERATION_MODE: ", operation_mode)
 
 ### GET THINGS READY
 @app.route("/")
@@ -76,16 +78,23 @@ def predict():
 
     tokens_list = tweetPreprocessing(mesg_str,2)
 
-    if working_mode == "operation":
-        encoded_tweet = toEmbedingsSequence(tokens_list, ft_model)
-        encoded_tweet.reshape((1,55,300))
+    
+    encoded_tweet = toEmbedingsSequence(tokens_list, ft_model)
+    encoded_tweet.reshape((1,55,300))
 
-        if chosen_classifier == "CNN":
+    if chosen_classifier == "CNN":
+        if operation_mode == "full":
             pred = CNN_CLASSIFIER.predict(encoded_tweet)
             label = pred.argmax()
             confidence = pred[0][label]
+        else:
+            label = request.headers.get('test_label')
+            confidence = 0.75
 
-        elif chosen_classifier == "Ensmble-CNN":
+            print("THIS IS TESTING MODE...")
+
+    elif chosen_classifier == "Ensmble-CNN":
+        if operation_mode == "full":
             classes_probs_sum = np.zeros((1,5))
 
             for CLASSIFIERS in ENSEMBLE_CLASSIFIERS:
@@ -96,19 +105,19 @@ def predict():
 
                 label = classes_probs_sum.argmax()
                 confidence = classes_probs_sum[0][label]/7
+        else:
+            label = request.headers.get('test_label')
+            confidence = 0.75
 
-        elif chosen_classifier == "SVC":
-            label = svc.predict(text_model.transform([mesg_str])[0])
-            confidence = 0
-    else:
+            print("THIS IS TESTING MODE...")
 
-        label = request.headers.get('test_label')
-        confidence = 0.75
+    elif chosen_classifier == "SVC":
+        label = svc.predict(text_model.transform([mesg_str])[0])
+        confidence = 0
 
     print(tokens_list)
     print(label)
-    print("THIS IS TESTING MODE...")
-
+    
     result = {'label':str(label), 'confianza':str(confidence)}
 
     res = make_response(jsonify(result), 200)

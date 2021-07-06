@@ -80,6 +80,7 @@
     function charCounter(text_field, count_span_id, max_limit)
     {
          var count_span = document.getElementById(count_span_id);
+         let message
          let msg_length = text_field.value.length;
          if ( msg_length> max_limit) {
               text_field.value = text_field.value.substring( 0, max_limit);
@@ -146,14 +147,17 @@
     }
 
     async function callClassiffier() {
+        // check empty message
+        if(document.getElementById('msg').value.length==0) return;
 
-        if(document.getElementById('msg').value.length==0){
-            return
-        }
-
-        //function callClassiffier(){
+        // check words-count minimum
         let message = text_field.value.replace(/[\n\r]/g, '');
-        //console.log(message);
+
+        non_empty_words = message.split(" ").filter((word)=>{
+                    return word.length > 0;
+                })
+
+        if(non_empty_words.length < 5) return;
 
         // headers cant receive emojis or new line characters
         // so args works better in this case

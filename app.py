@@ -6,12 +6,9 @@ import sys
 import numpy as np
 import pickle
 
-operation_mode = str(sys.argv[0])
-
 app = Flask(__name__)
 
-if operation_mode == "full":
-    ft_model = getFastTextModel()
+ft_model = getFastTextModel()
 
 # CNN
 CNN_MODEL_ID = "GWVBtYHV"
@@ -74,7 +71,7 @@ def predict():
     mesg_str = request.args.get('tweet')
     # mesg_str = request.headers.get('message')
     chosen_classifier = request.headers.get('classifier')
-    working_mode = request.headers.get('mode')
+    operation_mode = request.headers.get('mode')
 
     if chosen_classifier == "CNN":
         if operation_mode == "full":

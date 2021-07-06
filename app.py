@@ -86,7 +86,7 @@ def predict():
 
             print("THIS IS TESTING MODE...")
 
-    elif chosen_classifier == "Ensmble-CNN":
+    elif chosen_classifier == "Ensamble-CNN":
         if operation_mode == "full":
             tokens_list = tweetPreprocessing(mesg_str,2)
             encoded_tweet = toEmbedingsSequence(tokens_list, ft_model)

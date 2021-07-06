@@ -61,7 +61,7 @@
 <script>
 
     var chosen_classifier = "CNN";   // default classifier -> CNN
-    var working_mode = "operation";  
+    var working_mode = "full";  
     var fake_label = "1";  // to be used on testing mode
 
     var btn1 = document.getElementById("borrar_todo");
@@ -157,7 +157,10 @@
                     return word.length > 0;
                 })
 
-        if(non_empty_words.length < 5) return;
+        if(non_empty_words.length < 5){
+          alert("El mensaje de prueba debe tener una longitud mínima de cinco palabras.")
+          return;
+        } 
 
         // headers cant receive emojis or new line characters
         // so args works better in this case

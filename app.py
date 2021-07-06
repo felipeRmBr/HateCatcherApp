@@ -30,8 +30,6 @@ with open(f'./models/KAcOYq.svc', 'rb') as file_handler:
 print("THE CLASSIFIERS WERE LOADED TO MEMORY")
 print("THE SERVER IS READY...\n")
 
-print("OPERATION_MODE: ", operation_mode)
-
 ### GET THINGS READY
 @app.route("/")
 def home():

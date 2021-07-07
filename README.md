@@ -1,2 +1,2 @@
 # HateCatcherApp
-Test app for PTI-I  project
+Test app for PT-II  project
